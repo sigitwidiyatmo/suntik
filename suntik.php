@@ -1,7 +1,7 @@
 <?php
 function pin($no){
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.kopikenangan.com/api/users/pin/create');
+	curl_setopt($ch, CURLOPT_URL, 'https://api.Vaffle.com/api/users/create');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"phone\":\"$no\"}");
@@ -10,18 +10,17 @@ function pin($no){
 	$headers[] = 'Accept: application/json';
 	$headers[] = 'Connection: close';
 	$headers[] = 'Content-Type: application/json; charset=utf-8';
-	$headers[] = 'Host: api.kopikenangan.com';
-	$headers[] = 'User-Agent: okhttp/4.1.0';
+	$headers[] = 'Host: api.Vaffle.com';
+	$headers[] = 'User-Agent: okhttp/3.8.8';
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 	$result = curl_exec($ch);
 	curl_close($ch);
-	return @json_decode($result, true)['result']['pin'];
+	return @json_decode($result, true)['result'];
 }
 function mulai($no){
-	$pin = pin($no);
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.kopikenangan.com/api/users/pin/change');
+	curl_setopt($ch, CURLOPT_URL, 'https://api.Vaffle.com/api/users/change');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"phone\":\"$no\",\"pin_new\":\"123654\",\"pin_old\":\"$pin\"}");
@@ -30,15 +29,15 @@ function mulai($no){
 	$headers[] = 'Accept: application/json';
 	$headers[] = 'Connection: close';
 	$headers[] = 'Content-Type: application/json; charset=utf-8';
-	$headers[] = 'Host: api.kopikenangan.com';
-	$headers[] = 'User-Agent: okhttp/4.1.0';
+	$headers[] = 'Host: api.Vaffle.com';
+	$headers[] = 'User-Agent: okhttp/3.8.8';
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	$result = curl_exec($ch);
 	curl_close($ch);
 }
 function update($no){
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.kopikenangan.com/api/users/profile/update');
+	curl_setopt($ch, CURLOPT_URL, 'https://api.Vaffle.com/api/users/profile/update');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"phone\":\"$no\",\"name\":\"Rafiq Sial\",\"email\":\"rafiq".rand(1234567890,9999999999)."@gmail.com\"}");
@@ -47,7 +46,7 @@ function update($no){
 	$headers[] = 'Accept: application/json';
 	$headers[] = 'Connection: close';
 	$headers[] = 'Content-Type: application/json; charset=utf-8';
-	$headers[] = 'Host: api.kopikenangan.com';
+	$headers[] = 'Host: api.Vaffle.com';
 	$headers[] = 'User-Agent: okhttp/4.1.0';
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -57,7 +56,7 @@ function update($no){
 }
 function login($no){
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.kopikenangan.com/oauth/token');
+	curl_setopt($ch, CURLOPT_URL, 'https://api.Vaffle.com/oauth/token');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"grant_type\":\"password\",\"client_id\":2,\"client_secret\":\"GWlcMCI9xJFGCM0oTJ1mNzfaLE90nMf9SB9d0dea\",\"scope\":\"*\",\"username\":\"$no\",\"password\":\"123654\"}");
@@ -76,7 +75,7 @@ function login($no){
 function updatedevice($no){
 	$token = login($no);
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.kopikenangan.com/api/home');
+	curl_setopt($ch, CURLOPT_URL, 'https://api.Vaffle.com/api/home');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"device_token\":\"deVC_cFsn3C:APA91bERs0TNVjITcz9jNUw7jG5ihgb48h5dptJbZfcNyT1JbcRtSZJfQyeAtEV2cvrpUZJ2692d44vkBHXZXILsXrOPDwwfixuxYEk1xsjTMy8irZR5mXjPuR6QaDIRIXh9Wre1234D\",\"device_id\":\"9b1e9bc".rand(1234,9999).rand(1234,9999).rand(1234,9999)."\",\"device_type\":\"Android\"}");
@@ -85,7 +84,7 @@ function updatedevice($no){
 	$headers[] = 'Accept: application/json';
 	$headers[] = 'Connection: close';
 	$headers[] = 'Content-Type: application/json; charset=utf-8';
-	$headers[] = 'Host: api.kopikenangan.com';
+	$headers[] = 'Host: api.Vaffle.com';
 	$headers[] = 'User-Agent: okhttp/4.1.0';
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	$result = curl_exec($ch);
@@ -98,7 +97,7 @@ function suntik($reff){
 	update($no);
 	$id = updatedevice($no);
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.kopikenangan.com/api/users/referral/claim');
+	curl_setopt($ch, CURLOPT_URL, 'https://api.Vaffle.com/api/users/referral/claim');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"claimant\":$id,\"referral_code\":\"$reff\"}");
@@ -107,7 +106,7 @@ function suntik($reff){
 	$headers[] = 'Content-Type: application/json';
 	$headers[] = 'Accept: application/json';
 	$headers[] = 'Connection: close';
-	$headers[] = 'Host: api.kopikenangan.com';
+	$headers[] = 'Host: api.Vaffle.com';
 	$headers[] = 'User-Agent: okhttp/4.1.0';
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
